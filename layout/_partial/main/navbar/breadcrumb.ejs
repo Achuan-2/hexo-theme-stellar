@@ -34,6 +34,19 @@ function layoutDiv() {
         });
     }
     el += '</div>';
+    <!-- 标签 -->
+    el += '<div id="tag">';
+    if (page.layout == "post" && page.tags && page.tags.length > 0) {
+      el += '<span>标签：</span>';
+      el += list_categories(page.tags, {
+          class: "cap breadcrumb",
+          show_count: false,
+          separator: '&nbsp; ',
+          style: "none"
+        });
+    }
+    el += '</div>';
+
     // 发布日期
     el += '<div id="post-meta">';
     if (Math.abs(page.date - page.updated) == 0 || theme.updated_time.page_meta_type != "replace"){

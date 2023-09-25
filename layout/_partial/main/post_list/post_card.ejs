@@ -82,27 +82,49 @@ function div_default() {
     
   }
   el += '</span>';
+  el += '</div>';
   // cat
   if (post.categories && post.categories.length > 0) {
-    if (post.layout === 'post' && post.categories && post.categories.length > 0) {
       var cats = [];
-      if (post.categories) {
-        post.categories.forEach((cat, i) => {
-          cats.push(cat.name);
+      post.categories.forEach((cat, i) => {
+        cats.push(cat.name);
         });
-      }
       if (cats.length > 0) {
-        let cat = cats.shift();
-        el += '<span class="cap breadcrumb"' + category_color(cat) +'style="color:#17a3ff"'+ '>';
-        el += cat;
-        el += '</span>';
+        el += '<div class="meta cap">';
+          el += '分类：';
+          for (var i = 0; i < cats.length; i++) {
+            el += '<span class="cat breadcrumb" style="margin:0em;color:#529dd6;">';
+            el += cats[i] ;
+            el +='/';
+            el += '</span>';
+          }
+          el += '</div>';
       }
-    }
   }
+
+  <!-- 标签 -->
+  // tags
+  if (post.tags && post.tags.length > 0) {
+      var tags = [];
+      post.tags.forEach((tag, i) => {
+        tags.push(tag.name);
+      });
+      if (tags.length > 0) {
+          el += '<div class="meta cap">';
+          el += '标签：';
+          for (var i = 0; i < tags.length; i++) {
+            el += '<span class="tag breadcrumb">';
+            el += tags[i];
+            el +='&nbsp;';
+            el += '</span>';
+          }
+          el += '</div>';
+      }
+  }
+
   if (post.pin) {
     el += '<span class="pin"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/badge/3279dd441df8b.svg"/></span>';
   }
-  el += '</div>';
   el += '</article>';
   return el;
 }
