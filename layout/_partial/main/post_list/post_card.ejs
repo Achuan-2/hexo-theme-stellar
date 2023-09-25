@@ -70,7 +70,17 @@ function div_default() {
   el += '<div class="meta cap">';
   // time
   el += '<span class="cap" id="post-meta">';
-  el += __("meta.created") + '&nbsp;' + '<time datetime="' + date_xml(post.date) + '">' + date(post.date, config.date_format) + '</time>';
+  if (Math.abs(post.date - post.updated) == 0 || theme.updated_time.post_card_type != "replace"){
+    el += __("meta.created") + '&nbsp;<time datetime="' + date_xml(post.date) + '">' + date(post.date, config.date_format) + '</time>';
+  }
+  if (Math.abs(post.date - post.updated) > 0 && theme.updated_time.post_card_type != "none"){
+    if (theme.updated_time.post_card_type == "two_lines") el += '<br/>';
+    if (theme.updated_time.post_card_type == "same_line") el += '&nbsp;｜';
+    if (["replace", "same_line", "two_lines"].includes(theme.updated_time.post_card_type)){ //防止小天才乱填
+      el += __("meta.updated") + '&nbsp;<time datetime="' + date_xml(post.updated) + '">' + date(post.updated, config.date_format) + '</time>';
+    }
+    
+  }
   el += '</span>';
   // cat
   if (post.categories && post.categories.length > 0) {
@@ -83,7 +93,7 @@ function div_default() {
       }
       if (cats.length > 0) {
         let cat = cats.shift();
-        el += '<span class="cap breadcrumb"' + category_color(cat) + '>';
+        el += '<span class="cap breadcrumb"' + category_color(cat) +'style="color:#17a3ff"'+ '>';
         el += cat;
         el += '</span>';
       }
