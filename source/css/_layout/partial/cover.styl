@@ -16,11 +16,13 @@
   flex-direction: column
   justify-content: center
   align-items: center
+  font-size: var(--fsp)
   .cover-title
     font-weight: 700
     font-size: 1.5rem
     margin: 1rem 0
     line-height: 1.2
+    color: var(--text)
   .description
     margin: 1rem 0
   .start-wrap
@@ -47,22 +49,14 @@
         border-radius: 2rem
 
 
-.l_cover.post .cover-wrap
-  z-index: 1
-  .article-title
-    text-align: center
-    padding: 1rem
-    margin: 1em 0 0 0
-    @media screen and (min-width: $device-2k)
-      font-size: 3rem
-
-
 .l_cover.wiki .cover-wrap
   max-width: $device-mobile
   .preview
     margin-bottom: 2rem
     img
       object-fit: contain
+      min-width: 96px
+      min-height: 96px
       max-height: 35vh
       max-width: 100%
       @media screen and (max-width: $device-mobile)
