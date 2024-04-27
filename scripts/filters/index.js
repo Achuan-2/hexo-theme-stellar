@@ -5,8 +5,9 @@ hexo.extend.filter.register('after_render:html', require('./lib/img_onerror').pr
 
 function change_image(data) {
     if (this.theme.config.tag_plugins.image.parse_markdown) {
+        // 使用正则表达式匹配行首(^)或者任意空白字符(\s*)后跟图片链接的模式
         data.content = data.content.replace(
-            /!\[(.*?)\]\((.*?)\s*(?:"(.*?)")?\)/g,
+            /^(?:\s*)!\[(.*?)\]\((.*?)\s*(?:"(.*?)")?\)/gm,
             '{% image $2 $3 %}'
         );
     }
