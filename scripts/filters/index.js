@@ -5,7 +5,10 @@ hexo.extend.filter.register('after_render:html', require('./lib/img_onerror').pr
 
 function change_image(data) {
     if (this.theme.config.tag_plugins.image.parse_markdown) {
-        // 使用正则表达式匹配行首(^)或者任意空白字符(\s*)后跟图片链接的模式
+        // Step 1: 删除所有零宽空格字符
+        data.content = data.content.replace(/\u200B/g, '');
+
+        // Step 2: 修改正则表达式，只在行首或前面只有空格和缩进时替换图片链接
         data.content = data.content.replace(
             /^(?:\s*)!\[(.*?)\]\((.*?)\s*(?:"(.*?)")?\)/gm,
             '{% image $2 $3 %}'
@@ -13,6 +16,7 @@ function change_image(data) {
     }
     return data;
 }
+
 
 
 hexo.extend.filter.register('before_post_render', change_image, 9);
